@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+    ">
+    <bean class="com.invirgance.convirgance.web.service.SelectService">
+        <property name="parameters">
+            <list>
+                <bean class="com.invirgance.convirgance.web.parameter.RequestParameter">
+                    <property name="name" value="id" />
+                    <property name="defaultValue" value="0" />
+                </bean>
+                <bean class="com.invirgance.convirgance.web.parameter.RequestParameter">
+                    <property name="name" value="ownerId" />
+                    <property name="defaultValue" value="0" />
+                </bean>
+            </list>
+        </property>
+        <property name="binding">
+            <bean class="com.invirgance.convirgance.web.binding.QueryBinding">
+                <property name="jndiName" value="jdbc/petclinic" />
+                <property name="sql">
+                    <value>
+                    <![CDATA[
+                        select
+                            p.id as "id",
+                            p.name as "name",
+                            p.birth_date as "birthDate",
+                            p.owner_id as "ownerId",
+                            o.first_name || ' ' ||  o.last_name as "ownerName",
+                            t.id as "typeId",
+                            t.name as "type",
+                            v.visit_date as "visitDate",
+                            v.description as "description"
+                        from pets p
+                        join types t on t.id = p.type_id
+                        join owners o on o.id = p.owner_id
+                        left join visits v on v.pet_id = p.id
+                        where p.owner_id = :ownerId
+                        or p.id = :id
+                        order by p.name, p.birth_date, v.visit_date
+                    ]]>
+                    </value>
+                </property>
+            </bean>
+        </property>
+        <property name="transformers">
+            <bean class="com.invirgance.convirgance.transform.SortedGroupByTransformer">
+                <property name="fields" value="id, name, birthDate, ownerId, ownerName, typeId, type" />
+                <property name="output" value="visits" />
+            </bean>
+        </property>
+        <property name="output">
+            <bean class="com.invirgance.convirgance.output.JSONOutput" />
+        </property>
+    </bean>
+</beans>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+    ">
+    <bean class="com.invirgance.convirgance.web.service.SelectService">
+        <property name="parameters">
+            <list>
+                <bean class="com.invirgance.convirgance.web.parameter.RequestParameter">
+                    <property name="name" value="id" />
+                    <property name="defaultValue" value="0" />
+                </bean>
+                <bean class="com.invirgance.convirgance.web.parameter.RequestParameter">
+                    <property name="name" value="lastName" />
+                    <property name="defaultValue" value="" />
+                </bean>
+            </list>
+        </property>
+        <property name="binding">
+            <bean class="com.invirgance.convirgance.web.binding.QueryBinding">
+                <property name="jndiName" value="jdbc/petclinic" />
+                <property name="sql">
+                    <value>
+                    <![CDATA[
+                        select
+                            o.id as "id",
+                            o.first_name as "firstName",
+                            o.last_name as "lastName",
+                            o.address as "address",
+                            o.city as "city",
+                            o.telephone as "telephone",
+                            p.id  as "petId",
+                            p.name as "name",
+                            p.birth_date as "birthDate"
+                        from owners o
+                        left join pets p on p.owner_id = o.id
+                        where ((:id = 0 and :lastName = '') or o.id = :id)
+                        or (:lastName <> '' and o.last_name like :lastName || '%')
+                        order by o.first_name, o.last_name, p.name
+                    ]]>
+                    </value>
+                </property>
+            </bean>
+        </property>
+        <property name="transformers">
+            <bean class="com.invirgance.convirgance.transform.SortedGroupByTransformer">
+                <property name="fields" value="id, firstName, lastName, address, city, telephone" />
+                <property name="output" value="pets" />
+            </bean>
+        </property>
+        <property name="output">
+            <bean class="com.invirgance.convirgance.output.JSONOutput" />
+        </property>
+    </bean>
+</beans>
