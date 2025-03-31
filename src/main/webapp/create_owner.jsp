@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="convirgance:web" prefix="virge" %>
 <c:set var="nav" value="owners" scope="request" />
 <jsp:include page="include/header.jsp" />
 <script src="js/utilities.js"></script>
@@ -30,23 +31,27 @@
         };
     });
 </script>
-<%
-String[] titles = {"First Name", "Last Name", "Address", "City"};
-String[] keys = {"firstName", "lastName", "address", "city"};
-%>
+<virge:json var="items" scope="page">
+[
+    { "title": "First Name", "key": "firstName" },
+    { "title": "Last Name", "key": "lastName" },
+    { "title": "Address", "key": "address" },
+    { "title": "City", "key": "city"}
+]
+</virge:json>
   <h2>Owner</h2>
   <form class="form-horizontal" id="add-owner-form" onsubmit="return false;">
     <div class="form-group has-feedback">
-<% for(int i=0; i<titles.length; i++) { %>
+      <c:forEach var="item" items="${items}">
       <div class="form-group">
-        <label class="col-sm-2 control-label"><%= titles[i]%></label>
+        <label class="col-sm-2 control-label">${item.title}</label>
         <div class="col-sm-10">
             <div>
-                <input class="form-control" type="text" id="<%= keys[i]%>" name="<%= keys[i]%>" value="" required="true">
+                <input class="form-control" type="text" id="${item.key}" name="${item.key}" value="" required="true">
             </div>
         </div>
       </div>
-<% } %>
+      </c:forEach>
       <div class="form-group">
         <label class="col-sm-2 control-label">Telephone</label>
         <div class="col-sm-10">
