@@ -4,6 +4,8 @@ The [Spring Pet Clinic](https://github.com/spring-projects/spring-petclinic) exa
 Convirgance (Web Services) technology. Ironically, Spring XML IoC container is used by Convirgance (Web Services), so
 this is still a Spring application!
 
+![Pet Clinic Screenshot](https://cloud.githubusercontent.com/assets/838318/19727082/2aee6d6c-9b8e-11e6-81fe-e889a5ddfded.png)
+
 ## Status
 
 The backend has been ported and reduced to only configuration files. All Java code has disappeared from the project. This is due
