@@ -1,5 +1,5 @@
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:set var="nav" value="owners" scope="request" />
+<%@taglib uri="convirgance:web" prefix="virge" %>
+<virge:set var="nav" value="owners" scope="request" />
 <jsp:include page="include/header.jsp" />
 <script src="js/utilities.js"></script>
 <script>

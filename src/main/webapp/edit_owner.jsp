@@ -1,7 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="convirgance:web" prefix="virge" %>
-<c:set var="nav" value="owners" scope="request" />
+<virge:set var="nav" value="owners" scope="request" />
 <jsp:include page="include/header.jsp" />
 <script src="js/utilities.js"></script>
 <script>
@@ -45,7 +44,7 @@
   <h2>Owner</h2>
   <form class="form-horizontal" id="add-owner-form" onsubmit="return false;">
     <div class="form-group has-feedback">
-      <c:forEach var="item" items="${items}">
+      <virge:iterate var="item" items="${items}">
       <div class="form-group">
         <label class="col-sm-2 control-label">${item.title}</label>
         <div class="col-sm-10">
@@ -54,7 +53,7 @@
             </div>
         </div>
       </div>
-      </c:forEach>
+      </virge:iterate>
       <div class="form-group">
         <label class="col-sm-2 control-label">Telephone</label>
         <div class="col-sm-10">

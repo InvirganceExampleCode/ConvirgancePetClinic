@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:set var="nav" value="owners" scope="request" />
+<%@taglib uri="convirgance:web" prefix="virge" %>
+<virge:set var="nav" value="owners" scope="request" />
 <jsp:include page="include/header.jsp" />
 <script src="js/utilities.js"></script>
 <script>
@@ -9,7 +9,6 @@ function renderVisits(visits, pet)
     var table = document.createElement("table");
     var thead = document.createElement("thead");
     var tbody = document.createElement("tbody");
-    var th = document.createElement("th");
     var tr = document.createElement("tr");
     var td1;
     var td2;
@@ -102,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if(${param.success ne null}) 
     {
         document.getElementById("success-message").classList.remove("hidden");
-        document.getElementById("success-message").textContent = "<c:out value="${param.success}"/>";
+        document.getElementById("success-message").textContent = "${param.success}";
     }
     
     // Function to hide the success and error messages after 3 seconds
