@@ -1,5 +1,5 @@
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:set var="nav" value="vets" scope="request" />
+<%@taglib uri="convirgance:web" prefix="virge" %>
+<virge:set var="nav" value="vets" scope="request" />
 <jsp:include page="include/header.jsp" />
 <script src="https://cdn.jsdelivr.net/gh/InvirganceOpenSource/emirgance/src/main/resources/base/base.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/InvirganceOpenSource/emirgance/src/main/resources/paginated/table.js"></script>

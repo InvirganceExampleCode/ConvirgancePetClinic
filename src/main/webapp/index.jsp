@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:set var="nav" value="home" scope="request" />
+<%@taglib uri="convirgance:web" prefix="virge" %>
+<virge:set var="nav" value="home" scope="request" />
 <jsp:include page="include/header.jsp" />
 
 <h2>Welcome</h2>

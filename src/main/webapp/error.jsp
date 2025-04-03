@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" isErrorPage="true"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:set var="nav" value="error" scope="request" />
+<%@taglib uri="convirgance:web" prefix="virge" %>
+<virge:set var="nav" value="error" scope="request" />
 <jsp:include page="include/header.jsp" />
 
 <img src="${pageContext.request.contextPath}/resources/images/pets.png">
