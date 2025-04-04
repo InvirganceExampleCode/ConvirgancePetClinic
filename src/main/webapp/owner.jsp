@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if(${param.success ne null}) 
     {
         document.getElementById("success-message").removeAttribute("hidden");
-        document.getElementById("success-message").textContent = "${param.success}";
+        document.getElementById("success-message").textContent =  ${virge:javascript(param.success)};
     }
     
     // Function to hide the success and error messages after 3 seconds
