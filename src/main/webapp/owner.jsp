@@ -3,6 +3,12 @@
 <virge:set var="nav" value="owners" scope="request" />
 <jsp:include page="include/header.jsp" />
 <script src="js/utilities.js"></script>
+<virge:service var="owners" path="services/owners">
+    <virge:parameter name="id" value="${param.id}"/>
+</virge:service>
+<virge:service var="pets" path="services/pets">
+    <virge:parameter name="ownerId" value="${param.id}"/>
+</virge:service>
 <script>
 function renderVisits(visits, pet)
 {
@@ -51,71 +57,58 @@ function renderVisits(visits, pet)
     
 document.addEventListener('DOMContentLoaded', function() {
 
-    fetch(redirectUrl("services/owners", {id: "${param.id}"}))
-        .then(function(response) { return response.json(); })
-        .then(function(data) {
+    var owners = ${virge:json(owners)};
+    var pets = ${virge:json(pets)};
+        
+    var tbody = document.querySelector("#pet_info table tbody");
+    var tr;
+    var td;
+    
+    pageMap(owners[0]); // Populate owner info
 
-            for(var key in data[0])
-            {
-                if(document.getElementById(key)) document.getElementById(key).textContent = data[0][key];
-            }
+    for(const pet of pets)
+    {
+        tr = document.createElement("tr");
+        td = document.createElement("td");
+
+        td.setAttribute("valign", "top");
+        td.innerHTML = `<dl class="dl-horizontal">
+                        <dt>Name</dt>
+                        <dd>` + pet.name + `</dd>
+                        <dt>Birth Date</dt>
+                        <dd>` + pet.birthDate + `</dd>
+                        <dt>Type</dt>
+                        <dd>` + pet.type + `</dd>
+                      </dl>`;
+
+        tr.appendChild(td);
+
+        td = document.createElement("td");
+
+        td.appendChild(renderVisits(pet.visits, pet));
+        td.setAttribute("valign", "top");
+        tr.appendChild(td);
+        tbody.appendChild(tr);
+    }
             
-            document.getElementById("owner_info").classList.remove("hidden");
-        });
-        
-    fetch(redirectUrl("services/pets", {ownerId: "${param.id}"}))
-        .then(function(response) { return response.json(); })
-        .then(function(data) {
-            var tbody = document.querySelector("#pet_info table tbody");
-            var tr;
-            var td;
-            
-            for(const pet of data)
-            {
-                tr = document.createElement("tr");
-                td = document.createElement("td");
-                
-                td.setAttribute("valign", "top");
-                td.innerHTML = `<dl class="dl-horizontal">
-                                <dt>Name</dt>
-                                <dd>` + pet.name + `</dd>
-                                <dt>Birth Date</dt>
-                                <dd>` + pet.birthDate + `</dd>
-                                <dt>Type</dt>
-                                <dd>` + pet.type + `</dd>
-                              </dl>`;
-            
-                tr.appendChild(td);
-                
-                td = document.createElement("td");
-                
-                td.appendChild(renderVisits(pet.visits, pet));
-                td.setAttribute("valign", "top");
-                tr.appendChild(td);
-                tbody.appendChild(tr);
-            }
-            
-            document.getElementById("pet_info").classList.remove("hidden");
-        });
-        
+    document.getElementById("owner_info").removeAttribute("hidden");
+    document.getElementById("pet_info").removeAttribute("hidden");
+
     if(${param.success ne null}) 
     {
-        document.getElementById("success-message").classList.remove("hidden");
+        document.getElementById("success-message").removeAttribute("hidden");
         document.getElementById("success-message").textContent = "${param.success}";
     }
     
     // Function to hide the success and error messages after 3 seconds
     setTimeout(function() {
-        document.getElementById("success-message").classList.add("hidden");
+        document.getElementById("success-message").setAttribute("hidden", "true");
     }, 3000); 
 });
 </script>
-<style>
-.hidden { display: none; }
-</style>
     <h2>Owner Information</h2>
-    <div class="alert alert-success hidden" id="success-message"></div>
-    <div id="owner_info" class="hidden">
+    <div class="alert alert-success" id="success-message" hidden="true"></div>
+    <div id="owner_info" hidden="true">
     <table class="table table-striped">
       <tbody><tr>
         <th>Name</th>
@@ -139,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <a href="create_pet.jsp?ownerId=${param.id}" class="btn btn-primary">Add New Pet</a>
     </div>
     
-    <div id="pet_info" class="hidden">
+    <div id="pet_info" hidden="true">
     <br>
     <br>
     <h2>Pets and Visits</h2>
