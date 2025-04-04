@@ -2,97 +2,17 @@
 <%@taglib uri="convirgance:web" prefix="virge" %>
 <virge:set var="nav" value="owners" scope="request" />
 <jsp:include page="include/header.jsp" />
-<script src="js/utilities.js"></script>
+
 <virge:service var="owners" path="services/owners">
     <virge:parameter name="id" value="${param.id}"/>
 </virge:service>
+
 <virge:service var="pets" path="services/pets">
     <virge:parameter name="ownerId" value="${param.id}"/>
 </virge:service>
+
 <script>
-function renderVisits(visits, pet)
-{
-    var table = document.createElement("table");
-    var thead = document.createElement("thead");
-    var tbody = document.createElement("tbody");
-    var tr = document.createElement("tr");
-    var td1;
-    var td2;
-    
-    table.className = "table-condensed";
-    thead.innerHTML = `<tr>
-                         <th>Visit Date</th>
-                         <th>Description</th>
-                       </tr>`;
-    
-    for(const visit of visits)
-    {
-        tr = document.createElement("tr");
-        td1 = document.createElement("td");
-        td2 = document.createElement("td");
-        
-        td1.innerText = visit.visitDate;
-        td2.innerText = visit.description;
-        
-        tr.appendChild(td1);
-        tr.appendChild(td2);
-        tbody.appendChild(tr);
-    }
-    
-    tr = document.createElement("tr");
-    td1 = document.createElement("td");
-    td2 = document.createElement("td");
-    
-    td1.innerHTML = "<a href=\"edit_pet.jsp?id=" + pet.id + "\">Edit Pet</a>";
-    td2.innerHTML = "<a href=\"create_visit.jsp?id=" + pet.id + "\">Add Visit</a>";
-    
-    tr.appendChild(td1);
-    tr.appendChild(td2);
-    tbody.appendChild(tr);
-    table.appendChild(thead);
-    table.appendChild(tbody);
-    
-    return table;
-}
-    
 document.addEventListener('DOMContentLoaded', function() {
-
-    var owners = ${virge:json(owners)};
-    var pets = ${virge:json(pets)};
-        
-    var tbody = document.querySelector("#pet_info table tbody");
-    var tr;
-    var td;
-    
-    pageMap(owners[0]); // Populate owner info
-
-    for(const pet of pets)
-    {
-        tr = document.createElement("tr");
-        td = document.createElement("td");
-
-        td.setAttribute("valign", "top");
-        td.innerHTML = `<dl class="dl-horizontal">
-                        <dt>Name</dt>
-                        <dd>` + pet.name + `</dd>
-                        <dt>Birth Date</dt>
-                        <dd>` + pet.birthDate + `</dd>
-                        <dt>Type</dt>
-                        <dd>` + pet.type + `</dd>
-                      </dl>`;
-
-        tr.appendChild(td);
-
-        td = document.createElement("td");
-
-        td.appendChild(renderVisits(pet.visits, pet));
-        td.setAttribute("valign", "top");
-        tr.appendChild(td);
-        tbody.appendChild(tr);
-    }
-            
-    document.getElementById("owner_info").removeAttribute("hidden");
-    document.getElementById("pet_info").removeAttribute("hidden");
 
     if(${param.success ne null}) 
     {
@@ -108,37 +28,70 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
     <h2>Owner Information</h2>
     <div class="alert alert-success" id="success-message" hidden="true"></div>
-    <div id="owner_info" hidden="true">
     <table class="table table-striped">
-      <tbody><tr>
-        <th>Name</th>
-        <td><b><span id="firstName"></span> <span id="lastName"></span></b></td>
-      </tr>
-      <tr>
-        <th>Address</th>
-        <td><span id="address"></span></td>
-      </tr>
-      <tr>
-        <th>City</th>
-        <td><span id="city"></span></td>
-      </tr>
-      <tr>
-        <th>Telephone</th>
-        <td><span id="telephone"></span></td>
-      </tr>
-    </tbody></table>
+        <virge:iterate var="owner" items="${owners}">
+        <tbody>
+            <tr>
+                <th>Name</th>
+                <td><b>${owner.firstName} ${owner.lastName}</b></td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>${owner.address}</td>
+            </tr>
+            <tr>
+                <th>City</th>
+                <td>${owner.city}</td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>${owner.telephone}</td>
+            </tr>
+        </tbody>
+        </virge:iterate>
+    </table>
   
     <a href="edit_owner.jsp?id=${param.id}" class="btn btn-primary">Edit Owner</a>
     <a href="create_pet.jsp?ownerId=${param.id}" class="btn btn-primary">Add New Pet</a>
-    </div>
     
-    <div id="pet_info" hidden="true">
     <br>
     <br>
     <h2>Pets and Visits</h2>
-  
     <table class="table table-striped">
-        <tbody></tbody>
+        <tbody>
+            <virge:iterate var="pet" items="${pets}">
+            <tr>
+                <td valign="top">
+                    <dl class="dl-horizontal">
+                        <dt>Name</dt><dd>${pet.name}</dd>
+                        <dt>Birth Date</dt><dd>${pet.birthDate}</dd>
+                        <dt>Type</dt><dd>${pet.type}</dd>
+                    </dl>
+                </td>
+                <td valign="top">
+                    <table class="table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Visit Date</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <virge:iterate var="visit" items="${pet.visits}">
+                            <tr>
+                                <td>${visit.visitDate}</td>
+                                <td>${visit.description}</td>
+                            </tr>
+                            </virge:iterate>
+                            <tr>
+                                <td><a href="edit_pet.jsp?id=${pet.id}">Edit Pet</a></td>
+                                <td><a href="create_visit.jsp?id=${pet.id}">Add Visit</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            </virge:iterate>
+        </tbody>
     </table>
-    </div>
 <jsp:include page="include/footer.jsp" />
