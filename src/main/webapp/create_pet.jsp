@@ -3,16 +3,16 @@
 <jsp:include page="include/header.jsp" />
 <script src="js/utilities.js"></script>
 <virge:service var="types" path="services/types" />
-<script>
-    fetch(redirectUrl("services/owners", {id: "${param.ownerId}"}))
-        .then(function(response) { return response.json(); })
-        .then(function(data) { pageMap(data[0]); });
 
+<virge:service var="owners" path="services/owners">
+    <virge:parameter name="id" value="${param.ownerId}"/>
+</virge:service>
+<script>
     document.addEventListener('DOMContentLoaded', function() {
 
         document.getElementById("add-pet-form").onsubmit = function() {
             var keys = ["name", "birthDate", "type"];
-            var object = {ownerId: ${virge:javascript(param.ownerId)};
+            var object = { ownerId: ${virge:javascript(param.ownerId)} };
 
             for(var key of keys) object[key] = document.getElementById(key).value;
 
@@ -25,9 +25,7 @@
             })
             .then(function(response) { 
                 if(response.ok) return response.json(); 
-                else window.alert("An unexpected error occurred while trying to save the pet");
-                
-                return null;
+                else return window.alert("An unexpected error occurred while trying to save the pet");
             })
             .then(function(data) {
                 if(!data) return;
@@ -40,14 +38,13 @@
     });
 </script>
   <h2>New Pet</h2>
-  
+  <virge:iterate var="owner" items="${owners}">
   <form class="form-horizontal" id="add-pet-form" onsubmit="return false;">
-    <input type="hidden" name="id" value="">
     <div class="form-group has-feedback">
       <div class="form-group">
         <label class="col-sm-2 control-label">Owner</label>
         <div class="col-sm-10">
-          <span id="firstName"></span> <span id="lastName"></span>
+          ${virge:html(owner.firstName)} ${virge:html(owner.lastName)}
         </div>
       </div>
 
@@ -87,5 +84,5 @@
       </div>
     </div>
   </form>
-
+  </virge:iterate>
 <jsp:include page="include/footer.jsp" />
