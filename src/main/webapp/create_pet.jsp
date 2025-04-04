@@ -2,34 +2,17 @@
 <virge:set var="nav" value="owners" scope="request" />
 <jsp:include page="include/header.jsp" />
 <script src="js/utilities.js"></script>
+<virge:service var="types" path="services/types" />
 <script>
     fetch(redirectUrl("services/owners", {id: "${param.ownerId}"}))
         .then(function(response) { return response.json(); })
         .then(function(data) { pageMap(data[0]); });
 
-    fetch("services/types")
-        .then(function(response) { return response.json(); })
-        .then(function(data) {
-
-            var types = document.getElementById("type");
-            var option;
-
-            for(var type of data)
-            {
-                option = document.createElement("option");
-
-                option.value = type.name;
-                option.textContent = type.name;
-
-                types.appendChild(option);
-            }
-        });
-
     document.addEventListener('DOMContentLoaded', function() {
 
         document.getElementById("add-pet-form").onsubmit = function() {
             var keys = ["name", "birthDate", "type"];
-            var object = {ownerId: ${param.ownerId}};
+            var object = {ownerId: ${virge:javascript(param.ownerId)};
 
             for(var key of keys) object[key] = document.getElementById(key).value;
 
@@ -49,7 +32,7 @@
             .then(function(data) {
                 if(!data) return;
                 
-                window.location = redirectUrl("owner.jsp", {id: ${param.ownerId}, success: "New Pet has been Added"});
+                window.location = redirectUrl("owner.jsp", {id: ${virge:javascript(param.ownerId)}, success: "New Pet has been Added"});
             });
 
             return false;
@@ -89,7 +72,11 @@
       <div class="form-group">
         <label class="col-sm-2 control-label">Type</label>
         <div class="col-sm-10">
-          <select id="type" name="type"></select>
+            <select id="type" name="type">
+                <virge:iterate var="type" items="${types}">
+                <option value="${virge:html(type.name)}">${virge:html(type.name)}</option>
+                </virge:iterate>
+            </select>
         </div>
       </div>
     
