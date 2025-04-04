@@ -33,26 +33,26 @@ document.addEventListener('DOMContentLoaded', function() {
         <tbody>
             <tr>
                 <th>Name</th>
-                <td><b>${owner.firstName} ${owner.lastName}</b></td>
+                <td><b>${virge:html(owner.firstName)} ${virge:html(owner.lastName)}</b></td>
             </tr>
             <tr>
                 <th>Address</th>
-                <td>${owner.address}</td>
+                <td>${virge:html(owner.address)}</td>
             </tr>
             <tr>
                 <th>City</th>
-                <td>${owner.city}</td>
+                <td>${virge:html(owner.city)}</td>
             </tr>
             <tr>
                 <th>Telephone</th>
-                <td>${owner.telephone}</td>
+                <td>${virge:html(owner.telephone)}</td>
             </tr>
         </tbody>
         </virge:iterate>
     </table>
   
-    <a href="edit_owner.jsp?id=${param.id}" class="btn btn-primary">Edit Owner</a>
-    <a href="create_pet.jsp?ownerId=${param.id}" class="btn btn-primary">Add New Pet</a>
+    <a href="edit_owner.jsp?id=${virge:html(param.id)}" class="btn btn-primary">Edit Owner</a>
+    <a href="create_pet.jsp?ownerId=${virge:html(param.id)}" class="btn btn-primary">Add New Pet</a>
     
     <br>
     <br>
@@ -63,9 +63,9 @@ document.addEventListener('DOMContentLoaded', function() {
             <tr>
                 <td valign="top">
                     <dl class="dl-horizontal">
-                        <dt>Name</dt><dd>${pet.name}</dd>
-                        <dt>Birth Date</dt><dd>${pet.birthDate}</dd>
-                        <dt>Type</dt><dd>${pet.type}</dd>
+                        <dt>Name</dt><dd>${virge:html(pet.name)}</dd>
+                        <dt>Birth Date</dt><dd>${virge:html(pet.birthDate)}</dd>
+                        <dt>Type</dt><dd>${virge:html(pet.type)}</dd>
                     </dl>
                 </td>
                 <td valign="top">
@@ -79,13 +79,13 @@ document.addEventListener('DOMContentLoaded', function() {
                         <tbody>
                             <virge:iterate var="visit" items="${pet.visits}">
                             <tr>
-                                <td>${visit.visitDate}</td>
-                                <td>${visit.description}</td>
+                                <td>${virge:html(visit.visitDate)}</td>
+                                <td>${virge:html(visit.description)}</td>
                             </tr>
                             </virge:iterate>
                             <tr>
-                                <td><a href="edit_pet.jsp?id=${pet.id}">Edit Pet</a></td>
-                                <td><a href="create_visit.jsp?id=${pet.id}">Add Visit</a></td>
+                                <td><a href="edit_pet.jsp?id=${virge:urlparam(pet.id)}">Edit Pet</a></td>
+                                <td><a href="create_visit.jsp?id=${virge:urlparam(pet.id)}">Add Visit</a></td>
                             </tr>
                         </tbody>
                     </table>
