@@ -3,23 +3,22 @@
 <virge:set var="nav" value="owners" scope="request" />
 <jsp:include page="include/header.jsp" />
 <script src="js/utilities.js"></script>
+<virge:service var="owners" path="services/owners">
+    <virge:parameter name="id" value="${param.id}"/>
+</virge:service>
 <script>
-    var owner;
+    var owners = ${virge:json(owners)};
     
-    fetch("services/owners?id=${param.id}")
-        .then(function(response) { return response.json(); })
-        .then(function(data) { owner = data[0]; pageMap(owner); });
-
     document.addEventListener('DOMContentLoaded', function() {
         document.getElementById("add-owner-form").onsubmit = function() {
             var keys = ["firstName", "lastName", "address", "city", "telephone"];
-            var object = owner;
+            var owner = {id: owners[0].id};
 
-            for(var key of keys) object[key] = document.getElementById(key).value;
+            for(var key of keys) owner[key] = document.getElementById(key).value;
 
             fetch("services/update_owner", { 
                 method: "POST", 
-                body: JSON.stringify(object), 
+                body: JSON.stringify(owner), 
                 headers: { 
                     "Content-type": "application/json; charset=UTF-8" 
                 } 
@@ -41,15 +40,16 @@
     { "title": "City", "key": "city"}
 ]
 </virge:json>
-  <h2>Owner</h2>
-  <form class="form-horizontal" id="add-owner-form" onsubmit="return false;">
+<h2>Owner</h2>
+<virge:iterate var="owner" items="${owners}">
+<form class="form-horizontal" id="add-owner-form" onsubmit="return false;">
     <div class="form-group has-feedback">
       <virge:iterate var="item" items="${items}">
       <div class="form-group">
-        <label class="col-sm-2 control-label">${item.title}</label>
+        <label class="col-sm-2 control-label">${virge:html(item.title)}</label>
         <div class="col-sm-10">
             <div>
-                <input class="form-control" type="text" id="${item.key}" name="${item.key}" value="" required="true">
+                <input class="form-control" type="text" id="${virge:html(item.key)}" name="${virge:html(item.key)}" value="${virge:html(owner[item.key])}" required="true">
             </div>
         </div>
       </div>
@@ -58,16 +58,16 @@
         <label class="col-sm-2 control-label">Telephone</label>
         <div class="col-sm-10">
             <div>
-                <input class="form-control" type="tel" pattern="[0-9]{10}" id="telephone" name="telephone" title="Telephone must be a 10-digit number" value="" autocomplete="hidden" required="true">
+                <input class="form-control" type="tel" pattern="[0-9]{10}" id="telephone" name="telephone" title="Telephone must be a 10-digit number" value="${virge:html(owner.telephone)}" autocomplete="hidden" required="true">
             </div>
         </div>
       </div>
-    
     </div>
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
         <button class="btn btn-primary" type="submit">Update Owner</button>
       </div>
     </div>
-  </form>
+</form>
+</virge:iterate>
 <jsp:include page="include/footer.jsp" />
