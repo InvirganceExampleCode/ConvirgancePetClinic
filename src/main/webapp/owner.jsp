@@ -12,22 +12,13 @@
 </virge:service>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-
-    if(${param.success ne null}) 
-    {
-        document.getElementById("success-message").removeAttribute("hidden");
-        document.getElementById("success-message").textContent =  ${virge:javascript(param.success)};
-    }
-    
     // Function to hide the success and error messages after 3 seconds
     setTimeout(function() {
         document.getElementById("success-message").setAttribute("hidden", "true");
-    }, 3000); 
-});
+    }, 3000);
 </script>
     <h2>Owner Information</h2>
-    <div class="alert alert-success" id="success-message" hidden="true"></div>
+    <div class="alert alert-success" id="success-message" ${param.success ne null ? "" : "hidden"}>${virge:html(param.success)}</div>
     <table class="table table-striped">
         <virge:iterate var="owner" items="${owners}">
         <tbody>
