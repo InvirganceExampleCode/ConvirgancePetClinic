@@ -19,10 +19,7 @@ port.
 
 # Requirements
 
-Convirgance (Web Services) is not yet in release or pre-release. So if you want to build this, you'll need to download and build
-the [convirgance-web](https://github.com/InvirganceOpenSource/convirgance-web) project. 
-
-You'll also need a Servlet 3.0 compliant application server. Only Glassfish and Tomcat have been tested so far. However, other Jakarta EE compliant servers should work just fine.
+You'll need a Servlet 3.0 compliant application server. Only Glassfish and Tomcat have been tested so far. However, other Jakarta EE compliant servers should work just fine.
 
 # More Info
 
