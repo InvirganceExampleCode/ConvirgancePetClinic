@@ -13,6 +13,32 @@
         <property name="input">
             <bean class="com.invirgance.convirgance.input.JSONInput" />
         </property>
+        <property name="transformers">
+            <list>
+                <bean class="com.invirgance.convirgance.web.validation.NotNullValidation">
+                    <property name="key" value="id" />
+                </bean>
+                <bean class="com.invirgance.convirgance.web.validation.NotBlankValidation">
+                    <property name="key" value="firstName" />
+                </bean>
+                <bean class="com.invirgance.convirgance.web.validation.NotBlankValidation">
+                    <property name="key" value="lastName" />
+                </bean>
+                <bean class="com.invirgance.convirgance.web.validation.NotBlankValidation">
+                    <property name="key" value="address" />
+                </bean>
+                <bean class="com.invirgance.convirgance.web.validation.NotBlankValidation">
+                    <property name="key" value="city" />
+                </bean>
+                <bean class="com.invirgance.convirgance.web.validation.NotBlankValidation">
+                    <property name="key" value="telephone" />
+                </bean>
+                <bean class="com.invirgance.convirgance.web.validation.RegExValidation">
+                    <property name="key" value="telephone" />
+                    <property name="regex" value="\d{10}" />
+                </bean>
+            </list>
+        </property>
         <property name="consumer">
             <bean class="com.invirgance.convirgance.web.consumer.QueryConsumer">
                 <property name="jndiName" value="jdbc/petclinic" />
