@@ -12,14 +12,15 @@ The backend has been ported and reduced to only configuration files. All Java co
 the simplicity of the Pet Clinic example. Real-world applications would have _some_ Java code. Even if it's a lot less than a
 typical application.
 
-The front-end is intact and ported to JSP + Vanilla Javascript. The rendered pages were basically copied as-is rather than porting
-the Thymeleaf templates. This makes the HTML a bit bigger than the original, even though it produces the same rendered code. (More 
-or less.) The front-end will be a point of focus in the future to see how that can be reduced, but for now it's a pretty naive
-port.
+The front-end is intact and ported from Thymeleaf to JSP + Vanilla Javascript.
+
+# Try It
+
+You can try it online at https://examples.convirgance.com/clinic/
 
 # Requirements
 
-You'll need a Servlet 3.0 compliant application server. Only Glassfish and Tomcat have been tested so far. However, other Jakarta EE compliant servers should work just fine.
+You'll need a Servlet 3.0 compliant application server to install. Only Glassfish and Tomcat have been tested so far. However, other Jakarta EE compliant servers should work just fine.
 
 # More Info
 
