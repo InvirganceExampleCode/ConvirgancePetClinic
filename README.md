@@ -14,14 +14,14 @@ typical application.
 
 The front-end is intact and ported from Thymeleaf to JSP + Vanilla Javascript.
 
-# Try It
+## Try It
 
 You can try it online at https://examples.convirgance.com/clinic/
 
-# Requirements
+## Requirements
 
 You'll need a Servlet 3.0 compliant application server to install. Only Glassfish and Tomcat have been tested so far. However, other Jakarta EE compliant servers should work just fine.
 
-# More Info
+## More Info
 
 You can learn more about Convirgance at: https://www.convirgance.com
