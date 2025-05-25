@@ -1,60 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
 
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
-    ">
-    <bean class="com.invirgance.convirgance.web.service.InsertService">
-        <property name="origin">
-            <bean class="com.invirgance.convirgance.web.origin.RequestBodyOrigin" />
-        </property>
-        <property name="input">
-            <bean class="com.invirgance.convirgance.input.JSONInput" />
-        </property>
-        <property name="transformers">
-            <list>
-                <bean class="com.invirgance.convirgance.web.validation.NotNullValidation">
-                    <property name="key" value="petId" />
-                </bean>
-                <bean class="com.invirgance.convirgance.web.validation.NotBlankValidation">
-                    <property name="key" value="visitDate" />
-                </bean>
-                <bean class="com.invirgance.convirgance.web.validation.NotBlankValidation">
-                    <property name="key" value="description" />
-                </bean>
-            </list>
-        </property>
-        <property name="consumer">
-            <bean class="com.invirgance.convirgance.web.consumer.QueryConsumer">
-                <property name="jndiName" value="jdbc/petclinic" />
-                <property name="sql">
-                    <value>
-                    <![CDATA[
-                        insert into visits (
-                            id,
-                            pet_id,
-                            visit_date,
-                            description
-                        ) values (
-                            :id,
-                            :petId,
-                            :visitDate,
-                            :description
-                        )
-                    ]]>
-                    </value>
-                </property>
-                <property name="sequenceSql">
-                    <value>
-                    <![CDATA[
-                        VALUES NEXT VALUE FOR identifiers
-                    ]]>
-                    </value>
-                </property>
-                <property name="sequenceId" value="id" />
-            </bean>
-        </property>
-    </bean>
-</beans>
+<InsertService>
+    <origin>
+        <RequestBodyOrigin />
+    </origin>
+    <input>
+        <JSONInput />
+    </input>
+    <transformers>
+        <list>
+            <NotNullValidation>
+                <key>petId</key>
+            </NotNullValidation>
+            <NotBlankValidation>
+                <key>visitDate</key>
+            </NotBlankValidation>
+            <NotBlankValidation>
+                <key>description</key>
+            </NotBlankValidation>
+        </list>
+    </transformers>
+    <consumer>
+        <QueryConsumer>
+            <jndiName>jdbc/petclinic</jndiName>
+            <sql>
+                <![CDATA[
+                    insert into visits (
+                        id,
+                        pet_id,
+                        visit_date,
+                        description
+                    ) values (
+                        :id,
+                        :petId,
+                        :visitDate,
+                        :description
+                    )
+                ]]>
+            </sql>
+            <sequenceSql>
+                <![CDATA[
+                    VALUES NEXT VALUE FOR identifiers
+                ]]>
+            </sequenceSql>
+            <sequenceId>id</sequenceId>
+        </QueryConsumer>
+    </consumer>
+</InsertService>

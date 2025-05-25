@@ -1,39 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
 
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
-    ">
-    <bean class="com.invirgance.convirgance.web.service.SelectService">
-        <property name="parameters">
-            <list>
-                <bean class="com.invirgance.convirgance.web.parameter.RequestParameter">
-                    <property name="name" value="id" />
-                    <property name="defaultValue" value="0" />
-                </bean>
-            </list>
-        </property>
-        <property name="binding">
-            <bean class="com.invirgance.convirgance.web.binding.QueryBinding">
-                <property name="jndiName" value="jdbc/petclinic" />
-                <property name="sql">
-                    <value>
-                    <![CDATA[
-                        select
-                            id as "id",
-                            name as "name"
-                        from types t
-                        where :id = 0 or id = :id
-                        order by name
-                    ]]>
-                    </value>
-                </property>
-            </bean>
-        </property>
-        <property name="output">
-            <bean class="com.invirgance.convirgance.output.JSONOutput" />
-        </property>
-    </bean>
-</beans>
+<SelectService>
+    <parameters>
+        <list>
+            <RequestParameter>
+                <name>id</name>
+                <defaultValue>0</defaultValue>
+            </RequestParameter>
+        </list>
+    </parameters>
+    <binding>
+        <QueryBinding>
+            <jndiName>jdbc/petclinic</jndiName>
+            <sql>
+                <![CDATA[
+                    select
+                        id as "id",
+                        name as "name"
+                    from types t
+                    where :id = 0 or id = :id
+                    order by name
+                ]]>
+            </sql>
+        </QueryBinding>
+    </binding>
+    <output>
+        <JSONOutput />
+    </output>
+</SelectService>

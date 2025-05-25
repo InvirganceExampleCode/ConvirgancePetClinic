@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" isErrorPage="true"%>
 <%@taglib uri="convirgance:web" prefix="virge" %>
 <virge:set var="nav" value="error" scope="request" />
+<% if(exception != null) exception.printStackTrace(); %>
 <jsp:include page="include/header.jsp" />
 
 <img src="${pageContext.request.contextPath}/resources/images/pets.png">

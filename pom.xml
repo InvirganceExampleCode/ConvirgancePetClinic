@@ -27,7 +27,7 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>convirgance-web</artifactId>
-            <version>0.1.0</version>
+            <version>0.2.0</version>
         </dependency>
         
         <!-- Webjars -->
@@ -45,6 +45,11 @@
             <groupId>org.webjars.npm</groupId>
             <artifactId>font-awesome</artifactId>
             <version>${webjars-font-awesome.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>convirgance-jdbc</artifactId>
+            <version>0.3.0</version>
         </dependency>
     </dependencies>
     
