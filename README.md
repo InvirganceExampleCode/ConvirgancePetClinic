@@ -1,8 +1,7 @@
 # Spring Pet Clinic: Convirgance Edition
 
 The [Spring Pet Clinic](https://github.com/spring-projects/spring-petclinic) example application ported from SpringMVC to 
-Convirgance (Web Services) technology. Ironically, Spring XML IoC container is used by Convirgance (Web Services), so
-this is still a Spring application!
+[Convirgance (Web Services)](https://github.com/InvirganceOpenSource/convirgance-web/) technology.
 
 ![Pet Clinic Screenshot](https://cloud.githubusercontent.com/assets/838318/19727082/2aee6d6c-9b8e-11e6-81fe-e889a5ddfded.png)
 
