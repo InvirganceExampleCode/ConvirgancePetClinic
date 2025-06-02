@@ -78,6 +78,13 @@
                 </columns>
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/InvirganceOpenSource/emirgance/src/main/resources/themes/base/paginated/table.css">
                 <link rel="stylesheet" href="resources/css/petclinic.css">
+                <style>
+                    @media (max-width: 768px) {
+                        table {
+                            white-space: wrap;
+                        }
+                    }
+                </style>
             </paginated-table>
         </div>
         <div class="pager">
