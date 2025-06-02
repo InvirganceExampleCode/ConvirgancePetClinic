@@ -10,5 +10,6 @@
                 </div>
             </div>
         </div>
+        <script src="${pageContext.request.contextPath}/webjars/bootstrap/5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
