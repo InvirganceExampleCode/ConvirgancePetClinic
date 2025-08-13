@@ -12,19 +12,19 @@
     document.addEventListener('DOMContentLoaded', function() {
         document.getElementById("add-owner-form").onsubmit = function() {
             var keys = ["firstName", "lastName", "address", "city", "telephone"];
-            var owner = {id: owners[0].id};
+            var owner = {};
 
             for(var key of keys) owner[key] = document.getElementById(key).value;
 
-            fetch("services/update_owner", { 
-                method: "POST", 
+            fetch("services/owner/" + owners[0].id, { 
+                method: "PUT", 
                 body: JSON.stringify(owner), 
                 headers: { 
                     "Content-type": "application/json; charset=UTF-8" 
                 } 
             })
             .then(function(response) {
-                if(response.ok) window.location = redirectUrl("owner.jsp", {id: owner.id, success: "Owner Values Updated"});
+                if(response.ok) window.location = redirectUrl("owner.jsp", {id: owners[0].id, success: "Owner Values Updated"});
                 else window.alert("An unexpected error occurred while trying to save the owner");
             });
 

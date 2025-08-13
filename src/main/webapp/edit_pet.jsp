@@ -2,13 +2,11 @@
 <virge:set var="nav" value="owners" scope="request" />
 <jsp:include page="include/header.jsp" />
 <script src="js/utilities.js"></script>
-<virge:service var="types" path="services/types" />
 
-<virge:service var="pets" path="services/pets">
-    <virge:parameter name="id" value="${param.id}"/>
-</virge:service>
-
+<virge:service var="types" path="/services/types" />
+<virge:service var="pets" path="/services/owner/${param.ownerId}/pet/${param.id}" />
 <virge:set var="pet" value="${virge:first(pets)}" />
+
 <script>    
     document.addEventListener('DOMContentLoaded', function() {
         document.getElementById("add-pet-form").onsubmit = function() {
@@ -17,8 +15,8 @@
 
             for(var key of keys) object[key] = document.getElementById(key).value;
 
-            fetch("services/update_pet", { 
-                method: "POST", 
+            fetch("services/owner/${virge:urlparam(pet.ownerId)}/pet/${virge:urlparam(pet.id)}", { 
+                method: "PUT", 
                 body: JSON.stringify(object), 
                 headers: { 
                     "Content-type": "application/json; charset=UTF-8" 

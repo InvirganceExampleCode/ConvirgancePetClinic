@@ -11,14 +11,14 @@
             
             for(var key of keys) object[key] = document.getElementById(key).value;
 
-            fetch("services/create_owner", { 
+            fetch("services/owner", { 
                 method: "POST", 
                 body: JSON.stringify(object), 
                 headers: { 
                     "Content-type": "application/json; charset=UTF-8" 
                 } 
             })
-            .then(function(response) { 
+            .then(function(response) {
                 if(response.ok) return response.json(); 
                 else window.alert("An unexpected error occurred while trying to save the owner");
             })

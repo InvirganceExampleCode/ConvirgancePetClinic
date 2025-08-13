@@ -3,13 +3,8 @@
 <virge:set var="nav" value="owners" scope="request" />
 <jsp:include page="include/header.jsp" />
 
-<virge:service var="owners" path="services/owners">
-    <virge:parameter name="id" value="${param.id}"/>
-</virge:service>
-
-<virge:service var="pets" path="services/pets">
-    <virge:parameter name="ownerId" value="${param.id}"/>
-</virge:service>
+<virge:service var="owners" path="/services/owner/${param.id}" />
+<virge:service var="pets" path="/services/owner/${param.id}/pets" />
 
 <script>
     // Function to hide the success and error messages after 3 seconds
@@ -75,8 +70,8 @@
                             </tr>
                             </virge:iterate>
                             <tr>
-                                <td><a href="edit_pet.jsp?id=${virge:urlparam(pet.id)}">Edit Pet</a></td>
-                                <td><a href="create_visit.jsp?id=${virge:urlparam(pet.id)}">Add Visit</a></td>
+                                <td><a href="edit_pet.jsp?id=${virge:urlparam(pet.id)}&ownerId=${virge:html(param.id)}">Edit Pet</a></td>
+                                <td><a href="create_visit.jsp?id=${virge:urlparam(pet.id)}&ownerId=${virge:html(param.id)}">Add Visit</a></td>
                             </tr>
                         </tbody>
                     </table>

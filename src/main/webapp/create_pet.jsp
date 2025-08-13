@@ -12,11 +12,11 @@
 
         document.getElementById("add-pet-form").onsubmit = function() {
             var keys = ["name", "birthDate", "type"];
-            var object = { ownerId: ${virge:javascript(param.ownerId)} };
+            var object = { };
 
             for(var key of keys) object[key] = document.getElementById(key).value;
 
-            fetch("services/create_pet", { 
+            fetch("services/owner/${virge:urlparam(param.ownerId)}/pet", { 
                 method: "POST", 
                 body: JSON.stringify(object), 
                 headers: { 

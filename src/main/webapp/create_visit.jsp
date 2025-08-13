@@ -9,11 +9,11 @@
     document.addEventListener('DOMContentLoaded', function() {
         document.getElementById("add-visit-form").onsubmit = function() {
             var keys = ["visitDate", "description"];
-            var object = { petId: ${virge:javascript(param.id)} };
+            var object = { };
 
             for(var key of keys) object[key] = document.getElementById(key).value;
 
-            fetch("services/create_visit", { 
+            fetch("services/owner/${virge:urlparam(param.ownerId)}/pet/${virge:urlparam(param.id)}/visit", { 
                 method: "POST", 
                 body: JSON.stringify(object), 
                 headers: { 
