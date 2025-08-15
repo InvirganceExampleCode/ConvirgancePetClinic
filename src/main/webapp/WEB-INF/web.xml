@@ -10,6 +10,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>ServicesServlet</servlet-name>
+        <url-pattern>/views/*</url-pattern>
         <url-pattern>/services/*</url-pattern>
     </servlet-mapping>
     <session-config>

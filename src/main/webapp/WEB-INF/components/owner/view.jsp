@@ -1,7 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="convirgance:web" prefix="virge" %>
 <virge:set var="nav" value="owners" scope="request" />
-<jsp:include page="include/header.jsp" />
+<jsp:include page="/include/header.jsp" />
 
 <virge:service var="owners" path="/services/owner/${param.id}" />
 <virge:service var="pets" path="/services/owner/${param.id}/pets" />
@@ -37,8 +37,8 @@
         </virge:iterate>
     </table>
   
-    <a href="edit_owner.jsp?id=${virge:html(param.id)}" class="btn btn-primary">Edit Owner</a>
-    <a href="create_pet.jsp?ownerId=${virge:html(param.id)}" class="btn btn-primary">Add New Pet</a>
+    <a href="${param.id}/edit" class="btn btn-primary">Edit Owner</a>
+    <a href="${param.id}/pet/create" class="btn btn-primary">Add New Pet</a>
     
     <br>
     <br>
@@ -70,8 +70,8 @@
                             </tr>
                             </virge:iterate>
                             <tr>
-                                <td><a href="edit_pet.jsp?id=${virge:urlparam(pet.id)}&ownerId=${virge:html(param.id)}">Edit Pet</a></td>
-                                <td><a href="create_visit.jsp?id=${virge:urlparam(pet.id)}&ownerId=${virge:html(param.id)}">Add Visit</a></td>
+                                <td><a href="${virge:html(param.id)}/pet/${virge:urlparam(pet.id)}/edit">Edit Pet</a></td>
+                                <td><a href="${virge:html(param.id)}/pet/${virge:urlparam(pet.id)}/visit/create">Add Visit</a></td>
                             </tr>
                         </tbody>
                     </table>
@@ -80,4 +80,4 @@
             </virge:iterate>
         </tbody>
     </table>
-<jsp:include page="include/footer.jsp" />
+<jsp:include page="/include/footer.jsp" />

@@ -1,41 +1,9 @@
 <%@taglib uri="convirgance:web" prefix="virge" %>
 <virge:set var="nav" value="owners" scope="request" />
-<jsp:include page="include/header.jsp" />
-<script src="js/utilities.js"></script>
-<virge:service var="pets" path="services/pets">
-    <virge:parameter name="id" value="${param.id}"/>
-</virge:service>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById("add-visit-form").onsubmit = function() {
-            var keys = ["visitDate", "description"];
-            var object = { };
+<jsp:include page="/include/header.jsp" />
 
-            for(var key of keys) object[key] = document.getElementById(key).value;
+<virge:service var="pets" path="/services/owner/${param.ownerId}/pet/${param.id}" />
 
-            fetch("services/owner/${virge:urlparam(param.ownerId)}/pet/${virge:urlparam(param.id)}/visit", { 
-                method: "POST", 
-                body: JSON.stringify(object), 
-                headers: { 
-                    "Content-type": "application/json; charset=UTF-8" 
-                } 
-            })
-            .then(function(response) {
-                if(response.ok) return response.json(); 
-                else window.alert("An unexpected error occurred while trying to save the visit");
-                
-                return null;
-            })
-            .then(function(data) {
-                if(!data) return;
-                
-                window.location = redirectUrl("owner.jsp", {id: ${virge:javascript(virge:first(pets).ownerId)}, success: "Your visit has been booked"});
-            });
-            
-            return false;
-        };
-    });
-</script>
 <h2>New Visit</h2>
 <b>Pet</b>
 <virge:iterate var="pet" items="${pets}">
@@ -58,7 +26,7 @@
     </tbody>
 </table>
 
-<form class="form-horizontal" id="add-visit-form" onsubmit="return false;">
+<form class="form-horizontal" id="add-visit-form" method="POST">
     <div class="form-group has-feedback">
       
       <div class="form-group">
@@ -104,4 +72,4 @@
     </tbody>
 </table>
 </virge:iterate>
-<jsp:include page="include/footer.jsp" />
+<jsp:include page="/include/footer.jsp" />

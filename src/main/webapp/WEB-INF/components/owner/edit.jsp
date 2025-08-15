@@ -1,37 +1,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="convirgance:web" prefix="virge" %>
 <virge:set var="nav" value="owners" scope="request" />
-<jsp:include page="include/header.jsp" />
-<script src="js/utilities.js"></script>
-<virge:service var="owners" path="services/owners">
-    <virge:parameter name="id" value="${param.id}"/>
-</virge:service>
-<script>
-    var owners = ${virge:json(owners)};
-    
-    document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById("add-owner-form").onsubmit = function() {
-            var keys = ["firstName", "lastName", "address", "city", "telephone"];
-            var owner = {};
+<jsp:include page="/include/header.jsp" />
 
-            for(var key of keys) owner[key] = document.getElementById(key).value;
-
-            fetch("services/owner/" + owners[0].id, { 
-                method: "PUT", 
-                body: JSON.stringify(owner), 
-                headers: { 
-                    "Content-type": "application/json; charset=UTF-8" 
-                } 
-            })
-            .then(function(response) {
-                if(response.ok) window.location = redirectUrl("owner.jsp", {id: owners[0].id, success: "Owner Values Updated"});
-                else window.alert("An unexpected error occurred while trying to save the owner");
-            });
-
-            return false;
-        };
-    });
-</script>
+<virge:service var="owners" path="/services/owner/${param.id}" />
 <virge:json var="items" scope="page">
 [
     { "title": "First Name", "key": "firstName" },
@@ -40,9 +12,10 @@
     { "title": "City", "key": "city"}
 ]
 </virge:json>
+
 <h2>Owner</h2>
 <virge:iterate var="owner" items="${owners}">
-<form class="form-horizontal" id="add-owner-form" onsubmit="return false;">
+<form class="form-horizontal" id="add-owner-form" method="POST">
     <div class="form-group has-feedback">
         <virge:iterate var="item" items="${items}">
             <div class="form-group">
@@ -70,4 +43,4 @@
     </div>
 </form>
 </virge:iterate>
-<jsp:include page="include/footer.jsp" />
+<jsp:include page="/include/footer.jsp" />

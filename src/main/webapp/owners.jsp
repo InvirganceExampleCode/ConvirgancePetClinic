@@ -1,18 +1,27 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="convirgance:web" prefix="virge" %>
 <virge:set var="nav" value="owners" scope="request" />
-<jsp:include page="include/header.jsp" />
+<jsp:include page="/include/header.jsp" />
 <script src="https://cdn.jsdelivr.net/gh/InvirganceOpenSource/emirgance/src/main/resources/base/base.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/InvirganceOpenSource/emirgance/src/main/resources/paginated/table.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/InvirganceOpenSource/emirgance/src/main/resources/paginated/display.js" defer></script>
 <script src="https://cdn.jsdelivr.net/gh/InvirganceOpenSource/emirgance/src/main/resources/paginated/pager.js" defer></script>
 <script src="js/renderers.js"></script>
-<script src="js/utilities.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-            
+        
+        function parameterizeUrl(path, parameters)
+        {
+            const params = new URLSearchParams();
+
+            for(var key in parameters) params.append(key, parameters[key]);
+
+            return path + "?" + params;
+        }
+        
         document.getElementById("find").onclick = async function() {
-            var url = redirectUrl("services/owners", {lastName: document.getElementById("lastName").value});
+            var lastName = document.getElementById("lastName").value;
+            var url = parameterizeUrl("services/owners", {lastName: lastName});
             var response = await fetch(url);
             var owners = await response.json();
             
@@ -24,7 +33,7 @@
             
             if(owners.length === 1)
             {
-                window.location = redirectUrl("owner.jsp", {id: owners[0].id});
+                window.location = "views/owner/" + owners[0].id;
                 return;
             }
 
@@ -61,7 +70,7 @@
                     <button id="find" class="btn btn-primary">Find Owner</button>
                 </div>
             </div>
-            <a class="btn btn-primary" href="create_owner.jsp">Add Owner</a>
+            <a class="btn btn-primary" href="views/owner/create">Add Owner</a>
         </form>
     </div>
     
@@ -70,7 +79,7 @@
         <div>
             <paginated-table id="list" page-size="5" class="table table-striped">
                 <columns>
-                    <column href="owner.jsp?id={id}">Name</column>
+                    <column href="views/owner/{id}">Name</column>
                     <column key="address">Address</column>
                     <column key="city">City</column>
                     <column key="telephone">Telephone</column>
@@ -100,4 +109,4 @@
             </div>
         </div>
     </div>
-<jsp:include page="include/footer.jsp" />
+<jsp:include page="/include/footer.jsp" />

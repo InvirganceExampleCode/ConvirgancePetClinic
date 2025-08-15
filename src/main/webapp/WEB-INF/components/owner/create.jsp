@@ -1,35 +1,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="convirgance:web" prefix="virge" %>
 <virge:set var="nav" value="owners" scope="request" />
-<jsp:include page="include/header.jsp" />
-<script src="js/utilities.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById("add-owner-form").onsubmit = function() {
-            var keys = ["firstName", "lastName", "address", "city", "telephone"];
-            var object = {};
-            
-            for(var key of keys) object[key] = document.getElementById(key).value;
+<jsp:include page="/include/header.jsp" />
 
-            fetch("services/owner", { 
-                method: "POST", 
-                body: JSON.stringify(object), 
-                headers: { 
-                    "Content-type": "application/json; charset=UTF-8" 
-                } 
-            })
-            .then(function(response) {
-                if(response.ok) return response.json(); 
-                else window.alert("An unexpected error occurred while trying to save the owner");
-            })
-            .then(function(data) {
-                window.location = redirectUrl("owner.jsp", {id: data[0], success: "New Owner Created"});
-            });
-            
-            return false;
-        };
-    });
-</script>
 <virge:json var="items" scope="page">
 [
     { "title": "First Name", "key": "firstName" },
@@ -38,8 +11,9 @@
     { "title": "City", "key": "city"}
 ]
 </virge:json>
+
   <h2>Owner</h2>
-  <form class="form-horizontal" id="add-owner-form" onsubmit="return false;">
+  <form class="form-horizontal" id="add-owner-form" method="POST">
     <div class="form-group has-feedback">
       <virge:iterate var="item" items="${items}">
       <div class="form-group">
@@ -67,4 +41,4 @@
       </div>
     </div>
   </form>
-<jsp:include page="include/footer.jsp" />
+<jsp:include page="/include/footer.jsp" />

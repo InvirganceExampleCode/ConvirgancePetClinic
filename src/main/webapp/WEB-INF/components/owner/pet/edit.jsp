@@ -1,38 +1,13 @@
 <%@taglib uri="convirgance:web" prefix="virge" %>
 <virge:set var="nav" value="owners" scope="request" />
-<jsp:include page="include/header.jsp" />
-<script src="js/utilities.js"></script>
+<jsp:include page="/include/header.jsp" />
 
 <virge:service var="types" path="/services/types" />
 <virge:service var="pets" path="/services/owner/${param.ownerId}/pet/${param.id}" />
 <virge:set var="pet" value="${virge:first(pets)}" />
 
-<script>    
-    document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById("add-pet-form").onsubmit = function() {
-            var keys = ["name", "birthDate", "type"];
-            var object = { id: ${virge:javascript(pet.id)} };
-
-            for(var key of keys) object[key] = document.getElementById(key).value;
-
-            fetch("services/owner/${virge:urlparam(pet.ownerId)}/pet/${virge:urlparam(pet.id)}", { 
-                method: "PUT", 
-                body: JSON.stringify(object), 
-                headers: { 
-                    "Content-type": "application/json; charset=UTF-8" 
-                } 
-            })
-            .then(function(response) {
-                if(response.ok) window.location = redirectUrl("owner.jsp", {id: ${virge:javascript(pet.ownerId)}, success: "Pet details has been edited"});
-                else window.alert("An unexpected error occurred while trying to save the pet");
-            });
-
-            return false;
-        };
-    });
-</script>
   <h2>Pet</h2>
-  <form class="form-horizontal" id="add-pet-form" onsubmit="return false;">
+  <form class="form-horizontal" id="add-pet-form" method="POST">
     <input type="hidden" name="id" value="">
     <div class="form-group has-feedback">
       <div class="form-group">
@@ -76,4 +51,4 @@
       </div>
     </div>
   </form>
-<jsp:include page="include/footer.jsp" />
+<jsp:include page="/include/footer.jsp" />

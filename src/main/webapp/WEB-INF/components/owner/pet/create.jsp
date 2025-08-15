@@ -1,45 +1,11 @@
 <%@taglib uri="convirgance:web" prefix="virge" %>
 <virge:set var="nav" value="owners" scope="request" />
-<jsp:include page="include/header.jsp" />
-<script src="js/utilities.js"></script>
+<jsp:include page="/include/header.jsp" />
 <virge:service var="types" path="services/types" />
-
-<virge:service var="owners" path="services/owners">
-    <virge:parameter name="id" value="${param.ownerId}"/>
-</virge:service>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-
-        document.getElementById("add-pet-form").onsubmit = function() {
-            var keys = ["name", "birthDate", "type"];
-            var object = { };
-
-            for(var key of keys) object[key] = document.getElementById(key).value;
-
-            fetch("services/owner/${virge:urlparam(param.ownerId)}/pet", { 
-                method: "POST", 
-                body: JSON.stringify(object), 
-                headers: { 
-                    "Content-type": "application/json; charset=UTF-8" 
-                } 
-            })
-            .then(function(response) { 
-                if(response.ok) return response.json(); 
-                else return window.alert("An unexpected error occurred while trying to save the pet");
-            })
-            .then(function(data) {
-                if(!data) return;
-                
-                window.location = redirectUrl("owner.jsp", {id: ${virge:javascript(param.ownerId)}, success: "New Pet has been Added"});
-            });
-
-            return false;
-        };
-    });
-</script>
+<virge:service var="owners" path="/services/owner/${param.ownerId}" />
   <h2>New Pet</h2>
   <virge:iterate var="owner" items="${owners}">
-  <form class="form-horizontal" id="add-pet-form" onsubmit="return false;">
+  <form class="form-horizontal" id="add-pet-form" method="POST">
     <div class="form-group has-feedback">
       <div class="form-group">
         <label class="col-sm-2 control-label">Owner</label>
@@ -85,4 +51,4 @@
     </div>
   </form>
   </virge:iterate>
-<jsp:include page="include/footer.jsp" />
+<jsp:include page="/include/footer.jsp" />
