@@ -10,7 +10,7 @@
 
         <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/images/favicon.png">
 
-        <title>PetClinic :: a Spring Framework demonstration</title>
+        <title>PetClinic :: Convirgance (Web Services) demonstration</title>
 
         <link href="${pageContext.request.contextPath}/webjars/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/petclinic.css">
