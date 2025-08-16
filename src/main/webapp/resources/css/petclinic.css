@@ -9278,7 +9278,7 @@ textarea.form-control-lg {
   transition: border 0.15s;
   color: #f1f1f1;
   background: #34302D;
-  border-color: #6db33f;
+  border-color: #028AFE;
   -webkit-transition: border 0.15s;
   -moz-transition: border 0.15s;
   -o-transition: border 0.15s;
@@ -9323,7 +9323,7 @@ h1, .h1 {
   display: none; }
 
 .splash {
-  background: #6db33f;
+  background: #028AFE;
   color: #34302D;
   display: none; }
 
@@ -9371,7 +9371,7 @@ table td.action-column {
   color: #34302D; }
 
 .logo {
-  width: 200px; }
+  width: 160px; }
 
 .myspinner {
   animation-name: spinner;
@@ -9430,7 +9430,7 @@ strong {
   font-family: "montserratregular", sans-serif; }
 
 .navbar {
-  border-top: 4px solid #6db33f;
+  border-top: 4px solid #028AFE;
   background-color: #34302d;
   margin-bottom: 0px;
   border-bottom: 0;
@@ -9438,7 +9438,7 @@ strong {
   border-right: 0; }
 
 .navbar a.navbar-brand {
-  background: url("../images/spring-logo-dataflow.png") -1px -1px no-repeat;
+  background: url("../images/convirgance-logo.png") -1px -1px no-repeat;
   margin: 12px 0 6px;
   width: 229px;
   height: 46px;
@@ -9450,8 +9450,9 @@ strong {
   display: block;
   width: 229px;
   height: 46px;
-  background: url("../images/spring-logo-dataflow.png") -1px -48px no-repeat;
+  background: url("../images/convirgance-logo.png") -1px -48px no-repeat;
   opacity: 0;
+  transition: opacity 0.12s ease-in-out;
   -moz-transition: opacity 0.12s ease-in-out;
   -webkit-transition: opacity 0.12s ease-in-out;
   -o-transition: opacity 0.12s ease-in-out; }
@@ -9480,7 +9481,7 @@ strong {
 
 .navbar li:hover > a {
   color: #eeeeee;
-  background-color: #6db33f; }
+  background-color: #028AFE; }
 
 .navbar-toggle {
   border-width: 0; }
@@ -9499,10 +9500,12 @@ strong {
   .navbar a.navbar-brand {
     display: block;
     margin: 0 auto 0 auto;
-    width: 148px;
+    width: 216px;
     height: 50px;
     float: none;
-    background: url("../images/spring-logo-dataflow-mobile.png") 0 center no-repeat; }
+    background: url("../images/convirgance-logo-mobile.png") 0 center no-repeat; 
+    background-size: 65% 65%;
+    background-position: center; }
   .homepage-billboard .homepage-subtitle {
     font-size: 21px;
     line-height: 21px; }
@@ -9515,6 +9518,11 @@ strong {
     margin-bottom: 30px; }
   .index-page--subtitle {
     margin-top: 10px;
-    margin-bottom: 30px; } }
+    margin-bottom: 30px; }
+  table tr th:nth-child(4), 
+  table tr th:nth-child(5),
+  table tr td:nth-child(4),
+  table tr td:nth-child(5) { 
+    display: none; } }
 
 /*# sourceMappingURL=../../../../../../target/petclinic.css.map */

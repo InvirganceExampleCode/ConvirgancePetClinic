@@ -20,7 +20,7 @@
         
         <nav class="navbar navbar-expand-lg navbar-dark" role="navigation">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.jsp"><span></span></a>
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp"><span></span></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-navbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
