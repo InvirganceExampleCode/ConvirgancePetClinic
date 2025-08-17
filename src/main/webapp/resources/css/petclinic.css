@@ -673,6 +673,14 @@ progress {
     padding-left: calc(var(--bs-gutter-x) * .5);
     margin-top: var(--bs-gutter-y); }
 
+.control-label {
+  margin-top: 1.4rem;
+}
+
+.form-group .form-group:first-child .control-label {
+  margin-top: 0.2rem;
+}
+  
 .col {
   flex: 1 0 0%; }
 
