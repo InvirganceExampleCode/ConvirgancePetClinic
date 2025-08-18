@@ -25,7 +25,7 @@ Alternatively, you can run the Convirgance (Boot) version by running `java -jar 
 
 ## Docker Deployment
 
-After building the Java version, you can build the Docker Container by running `docker build .`
+After running the Maven build with `mvn clean package`, you can build the Docker Container by running `docker build .`
 
 ## More Info
 
