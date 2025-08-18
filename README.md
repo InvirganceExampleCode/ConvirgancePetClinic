@@ -3,8 +3,7 @@
 The [Spring Pet Clinic](https://github.com/spring-projects/spring-petclinic) example application ported from SpringMVC to 
 [Convirgance (Web Services)](https://github.com/InvirganceOpenSource/convirgance-web/) technology.
 
-<img width="2008" height="1212" alt="Pet Clinic Screenshot" src="https://github.com/user-attachments/assets/b93a1bb7-41d8-4801-a312-e215378cec45" />
-
+<img width="2090" height="1244" alt="Pet Clinic Screenshot" src="https://github.com/user-attachments/assets/aaa86140-1d21-47bb-8f29-ea7a33da020c" />
 
 ## Status
 
