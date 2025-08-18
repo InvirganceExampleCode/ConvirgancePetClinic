@@ -23,7 +23,7 @@ You'll need a Servlet 3.0 compliant application server to deploy the `.war` vers
 
 Alternatively, you can run the Convirgance (Boot) version by running `java -jar target/ConvirgancePetClinic.jar`. Pass `-p <port>` if port `8080` is unavailable.
 
-# Docker Deployment
+## Docker Deployment
 
 After building the Java version, you can build the Docker Container by running `docker build .`
 
