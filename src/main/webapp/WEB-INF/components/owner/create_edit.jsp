@@ -3,7 +3,7 @@
 <virge:set var="nav" value="owners" scope="request" />
 <jsp:include page="/include/header.jsp" />
 
-<virge:service var="owners" path="/services/owner/${param.id}" />
+<virge:json var="owners">[{"firstName":"","lastName":"","address":"","city":"","telephone": ""}]</virge:json>
 <virge:json var="items" scope="page">
 [
     { "title": "First Name", "key": "firstName" },
@@ -12,6 +12,10 @@
     { "title": "City", "key": "city"}
 ]
 </virge:json>
+
+<virge:if test="${param.id ne 'create'}">
+    <virge:service var="owners" path="/services/owner/${param.id}" />
+</virge:if>
 
 <h2>Owner</h2>
 <virge:iterate var="owner" items="${owners}">

@@ -17,14 +17,14 @@
                         <list>
                             <verb>
                                 <name>create</name>
-                                <page>/WEB-INF/components/owner/create.jsp</page>
+                                <page>/WEB-INF/components/owner/create_edit.jsp</page>
                                 <service>/services/owner/{id}</service>
                                 <method>POST</method>
                                 <redirect>/views/owner/{id}</redirect>
                             </verb>
                             <verb>
                                 <name>edit</name>
-                                <page>/WEB-INF/components/owner/edit.jsp</page>
+                                <page>/WEB-INF/components/owner/create_edit.jsp</page>
                                 <service>/services/owner/{id}</service>
                                 <method>PUT</method>
                             </verb>
@@ -49,14 +49,14 @@
                         <list>
                             <verb>
                                 <name>create</name>
-                                <page>/WEB-INF/components/owner/pet/create.jsp</page>
+                                <page>/WEB-INF/components/owner/pet/create_edit.jsp</page>
                                 <service>/services/owner/{ownerId}/pet/{id}</service>
                                 <method>POST</method>
                                 <redirect>/views/owner/{ownerId}</redirect>
                             </verb>
                             <verb>
                                 <name>edit</name>
-                                <page>/WEB-INF/components/owner/pet/edit.jsp</page>
+                                <page>/WEB-INF/components/owner/pet/create_edit.jsp</page>
                                 <service>/services/owner/{ownerId}/pet/{id}</service>
                                 <method>PUT</method>
                                 <redirect>/views/owner/{ownerId}</redirect>

@@ -3,18 +3,23 @@
 <jsp:include page="/include/header.jsp" />
 
 <virge:service var="types" path="/services/types" />
-<virge:service var="pets" path="/services/owner/${param.ownerId}/pet/${param.id}" />
-<virge:set var="pet" value="${virge:first(pets)}" />
+<virge:service var="owners" path="/services/owner/${param.ownerId}" />
+<virge:set var="owner" value="${virge:first(owners)}" />
+<virge:json var="pet">{"ownerName":"","name":"","birthDate":"","type":""}</virge:json>
 
+<virge:if test="${param.id ne 'create'}">
+    <virge:service var="pets" path="/services/owner/${param.ownerId}/pet/${param.id}" />
+    <virge:set var="pet" value="${virge:first(pets)}" />
+</virge:if>
   <h2>Pet</h2>
   <form class="form-horizontal" id="add-pet-form" method="POST">
     <input type="hidden" name="id" value="">
     <div class="form-group has-feedback">
       <div class="form-group">
         <label class="col-sm-2 control-label">Owner</label>
-        <div class="col-sm-10">${virge:html(pet.ownerName)}</div>
+        <div class="col-sm-10">${virge:html(owner.firstName)} ${virge:html(owner.lastName)}</div>
       </div>
-      
+
       <div class="form-group">
         <label class="col-sm-2 control-label">Name</label>
         <div class="col-sm-10">
