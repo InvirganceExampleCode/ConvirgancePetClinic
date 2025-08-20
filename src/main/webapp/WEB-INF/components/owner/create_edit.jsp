@@ -42,7 +42,7 @@
     </div>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <button class="btn btn-primary" type="submit">Update Owner</button>
+            <button class="btn btn-primary" type="submit">${param.id eq 'create' ? 'Add' : 'Update'} Owner</button>
         </div>
     </div>
 </form>
